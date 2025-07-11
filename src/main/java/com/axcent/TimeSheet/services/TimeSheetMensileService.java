@@ -4,7 +4,9 @@ import com.axcent.TimeSheet.entities.TimeSheetMensile;
 import com.axcent.TimeSheet.repositories.TimeSheetMensileRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -18,6 +20,11 @@ public class TimeSheetMensileService
     private final TimeSheetMensileRepository timeSheetMensileRepository;
     private final CustomUtenteRepositoryImpl custom;
     //nei servizi vanno le repository
+
+    public TimeSheetMensile getById(Long id)
+    {
+        return timeSheetMensileRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 
     public TimeSheetMensile saveTimeSheetM(TimeSheetMensile timeSheetMensile)
     {
