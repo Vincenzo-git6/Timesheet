@@ -1,0 +1,80 @@
+Index: src/main/java/com/axcent/TimeSheet/services/TimeSheetService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.axcent.TimeSheet.services;\r\n\r\nimport com.axcent.TimeSheet.entities.TimeSheetGiornaliero;\r\nimport com.axcent.TimeSheet.entities.TimeSheetMensile;\r\nimport lombok.RequiredArgsConstructor;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport java.time.LocalDate;\r\nimport java.time.LocalTime;\r\nimport java.time.Month;\r\n\r\n@Service\r\n@RequiredArgsConstructor\r\npublic class TimeSheetService\r\n{\r\n    private final TimeSheetMensileService timeSheetMensileService;\r\n    private final TimeSheetGiornalieroService timeSheetGiornalieroService;\r\n\r\n    public void timbra(TimeSheetGiornaliero giornaliero) {\r\n        LocalTime ora = LocalTime.now();\r\n\r\n        if (ora.isBefore(LocalTime.of(13, 0))) {\r\n            timbraMattina(giornaliero, ora);\r\n        } else if (ora.isBefore(LocalTime.of(18, 0))) {\r\n            timbraPomeriggio(giornaliero, ora);\r\n        } else {\r\n            timbraStraordinario(giornaliero, ora);\r\n        }\r\n    }\r\n\r\n    private void timbraMattina(TimeSheetGiornaliero giornaliero, LocalTime ora) {\r\n        if (giornaliero.getEntrataMattina() == null) {\r\n            giornaliero.setEntrataMattina(ora);\r\n        } else if (giornaliero.getUscitaMattina() == null) {\r\n            giornaliero.setUscitaMattina(ora);\r\n        } else {\r\n            throw new IllegalStateException(\"Hai già completato la timbratura mattutina.\");\r\n        }\r\n    }\r\n\r\n    private void timbraPomeriggio(TimeSheetGiornaliero giornaliero, LocalTime ora) {\r\n        boolean mattinaCompletata = giornaliero.getUscitaMattina() != null ||\r\n                (giornaliero.getEntrataMattina() == null && giornaliero.getUscitaMattina() == null);\r\n\r\n        if (!mattinaCompletata) {\r\n            throw new IllegalStateException(\"Devi completare o saltare la mattina prima di timbrare il pomeriggio.\");\r\n        }\r\n\r\n        if (giornaliero.getEntrataPomeriggio() == null) {\r\n            giornaliero.setEntrataPomeriggio(ora);\r\n        } else if (giornaliero.getUscitaPomeriggio() == null) {\r\n            giornaliero.setUscitaPomeriggio(ora);\r\n        } else {\r\n            throw new IllegalStateException(\"Hai già completato la timbratura pomeridiana.\");\r\n        }\r\n    }\r\n\r\n    private void timbraStraordinario(TimeSheetGiornaliero giornaliero, LocalTime ora) {\r\n        boolean orarioNormaleCompletato =\r\n                (giornaliero.getEntrataMattina() == null || giornaliero.getUscitaMattina() != null) &&\r\n                        (giornaliero.getEntrataPomeriggio() == null || giornaliero.getUscitaPomeriggio() != null);\r\n\r\n        if (!orarioNormaleCompletato) {\r\n            throw new IllegalStateException(\"Completa o salta l'orario normale prima dello straordinario.\");\r\n        }\r\n\r\n        if (giornaliero.getEntrataStraordinario() == null) {\r\n            giornaliero.setEntrataStraordinario(ora);\r\n        } else if (giornaliero.getUscitaStraordinario() == null) {\r\n            giornaliero.setUscitaStraordinario(ora);\r\n        } else {\r\n            throw new IllegalStateException(\"Hai già completato lo straordinario.\");\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/axcent/TimeSheet/services/TimeSheetService.java b/src/main/java/com/axcent/TimeSheet/services/TimeSheetService.java
+--- a/src/main/java/com/axcent/TimeSheet/services/TimeSheetService.java	(revision 0353f56dfd4c0b95e435e9bd5e7c2adbccd3f5bb)
++++ b/src/main/java/com/axcent/TimeSheet/services/TimeSheetService.java	(date 1752221671906)
+@@ -2,7 +2,9 @@
+ 
+ import com.axcent.TimeSheet.entities.TimeSheetGiornaliero;
+ import com.axcent.TimeSheet.entities.TimeSheetMensile;
++import com.axcent.TimeSheet.repositories.TimeSheetGiornalieroRepository;
+ import lombok.RequiredArgsConstructor;
++import org.springframework.data.crossstore.ChangeSetPersister;
+ import org.springframework.stereotype.Service;
+ 
+ import java.time.LocalDate;
+@@ -15,6 +17,7 @@
+ {
+     private final TimeSheetMensileService timeSheetMensileService;
+     private final TimeSheetGiornalieroService timeSheetGiornalieroService;
++    private final TimeSheetGiornalieroRepository timeSheetGiornalieroRepository;
+ 
+     public void timbra(TimeSheetGiornaliero giornaliero) {
+         LocalTime ora = LocalTime.now();
+@@ -38,12 +41,47 @@
+         }
+     }
+ 
++    private void modificaEntrataMattina(Long giornalieroId, LocalTime oraModificata)
++    {
++        TimeSheetGiornaliero giornaliero = timeSheetGiornalieroRepository.findById(giornalieroId)
++                .orElseThrow(()-> new RuntimeException("Nessun TimeSheet trovato con id: "+giornalieroId));
++
++        giornaliero.setEntrataMattina(oraModificata);
++        timeSheetGiornalieroService.save(giornaliero);
++    }
++
++    private void modificaUscitaMattina(Long giornalieroId, LocalTime oraModificata)
++    {
++        TimeSheetGiornaliero giornaliero = timeSheetGiornalieroRepository.findById(giornalieroId)
++                .orElseThrow(()-> new RuntimeException("Nessun TimeSheet trovato con id: "+giornalieroId));
++
++        giornaliero.setUscitaMattina(oraModificata);
++        timeSheetGiornalieroService.save(giornaliero);
++    }
++
++    private void modificaEntrataPomeriggio(Long giornalieroId, LocalTime oraModificata)
++    {
++        TimeSheetGiornaliero giornaliero = timeSheetGiornalieroRepository.findById(giornalieroId)
++                .orElseThrow(()-> new RuntimeException("Nessun TimeSheet trovato con id: "+giornalieroId));
++
++        giornaliero.setEntrataPomeriggio(oraModificata);
++        timeSheetGiornalieroService.save(giornaliero);
++    }
++
++    private void modificaUscitaPomeriggio(Long giornalieroId, LocalTime oraModificata)
++    {
++        TimeSheetGiornaliero giornaliero = timeSheetGiornalieroRepository.findById(giornalieroId)
++                .orElseThrow(()-> new RuntimeException("Nessun TimeSheet trovato con id: "+giornalieroId));
++
++        giornaliero.setUscitaPomeriggio(oraModificata);
++        timeSheetGiornalieroService.save(giornaliero);
++    }
++
+     private void timbraPomeriggio(TimeSheetGiornaliero giornaliero, LocalTime ora) {
+-        boolean mattinaCompletata = giornaliero.getUscitaMattina() != null ||
+-                (giornaliero.getEntrataMattina() == null && giornaliero.getUscitaMattina() == null);
++        boolean mattinaNonCompletata = (giornaliero.getEntrataMattina() != null && giornaliero.getUscitaMattina() == null);
+ 
+-        if (!mattinaCompletata) {
+-            throw new IllegalStateException("Devi completare o saltare la mattina prima di timbrare il pomeriggio.");
++        if (mattinaNonCompletata) {
++            throw new IllegalStateException("Devi completare la mattina prima di timbrare il pomeriggio.");
+         }
+ 
+         if (giornaliero.getEntrataPomeriggio() == null) {
