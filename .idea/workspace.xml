@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99f030fa-4085-4f07-9dbf-4ec01814edf0" name="Changes" comment="controller per timbrare funziona, due tabelle pergestire i diversi giorni e poter impostare orari diversi">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/ExcelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/ExcelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/ExcelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetMensileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetMensileService.java" afterDir="false" />
-    </list>
+    <list default="true" id="99f030fa-4085-4f07-9dbf-4ec01814edf0" name="Changes" comment="da vedere se va excel" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,7 +87,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752235941255</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="da vedere se va excel">
+      <option name="closed" value="true" />
+      <created>1752237160530</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1752237160530</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -110,7 +111,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="controller per timbrare funziona, due tabelle pergestire i diversi giorni e poter impostare orari diversi" />
-    <option name="LAST_COMMIT_MESSAGE" value="controller per timbrare funziona, due tabelle pergestire i diversi giorni e poter impostare orari diversi" />
+    <MESSAGE value="da vedere se va excel" />
+    <option name="LAST_COMMIT_MESSAGE" value="da vedere se va excel" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
