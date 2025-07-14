@@ -79,4 +79,40 @@ public class TimeSheetGiornaliero {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.ITALIAN);
         return data != null ? data.format(formatter) : "";
     }
+
+    @Transient
+    private String formatOrEmpty(LocalTime time) {
+        return time != null ? time.format(DateTimeFormatter.ofPattern("HH:mm")) : "";
+    }
+
+    @Transient
+    public String getEntrataMattinaFormattata() {
+        return formatOrEmpty(entrataMattina);
+    }
+
+    @Transient
+    public String getUscitaMattinaFormattata() {
+        return formatOrEmpty(uscitaMattina);
+    }
+
+    @Transient
+    public String getEntrataPomeriggioFormattata() {
+        return formatOrEmpty(entrataPomeriggio);
+    }
+
+    @Transient
+    public String getUscitaPomeriggioFormattata() {
+        return formatOrEmpty(uscitaPomeriggio);
+    }
+
+    @Transient
+    public String getEntrataStraordinarioFormattata() {
+        return formatOrEmpty(entrataStraordinario);
+    }
+
+    @Transient
+    public String getUscitaStraordinarioFormattata() {
+        return formatOrEmpty(uscitaStraordinario);
+    }
+
 }

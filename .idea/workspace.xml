@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99f030fa-4085-4f07-9dbf-4ec01814edf0" name="Changes" comment="da vedere se va excel" />
+    <list default="true" id="99f030fa-4085-4f07-9dbf-4ec01814edf0" name="Changes" comment="da vedere se va excel">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/TimeSheetApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/TimeSheetApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/entities/TimeSheetGiornaliero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/entities/TimeSheetGiornaliero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/ExcelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/controllers/TimeSheetGiornalieroController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/controllers/TimeSheetMensileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/entities/TimeSheetGiornaliero.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/entities/TimeSheetGiornaliero.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/TimeSheetMensileService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/TimeSheetMensileService.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +39,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Vincenzo-git6/Timesheet.git&quot;,
-    &quot;accountId&quot;: &quot;a8008c3b-1a69-4b1d-838f-823d3bbbfcf2&quot;
+    &quot;accountId&quot;: &quot;ea87e551-affc-4e79-91ce-8fecec3b7651&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
@@ -49,20 +58,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.TimeSheetApplication.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.TimeSheetApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user556/VeronicaPugliese/IntelliJ/ProgettoTimeSheet/Timesheet&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="99f030fa-4085-4f07-9dbf-4ec01814edf0" name="Changes" comment="" />
