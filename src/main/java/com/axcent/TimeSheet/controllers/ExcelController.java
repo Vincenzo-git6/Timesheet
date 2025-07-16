@@ -1,20 +1,22 @@
 package com.axcent.TimeSheet.controllers;
 
+import com.axcent.TimeSheet.dtos.TimeSheetMensileDto;
 import com.axcent.TimeSheet.entities.TimeSheetMensile;
 import com.axcent.TimeSheet.services.ExcelService;
 import com.axcent.TimeSheet.services.TimeSheetMensileService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/excel")
@@ -22,7 +24,7 @@ import java.io.IOException;
 public class ExcelController {
 
     private final ExcelService excelService;
-    private final TimeSheetMensileService timeSheetMensileService; // o il tuo servizio
+    private final TimeSheetMensileService timeSheetMensileService;
 
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> downloadTimesheet(@PathVariable Long id) throws IOException {
@@ -35,5 +37,52 @@ public class ExcelController {
                 .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
                 .body(excelBytes);
     }
+
+    @GetMapping("/user/{userId}")
+    public List<TimeSheetMensileDto> listAll(
+            @PathVariable Long userId,
+            @RequestParam(required = false) Integer anno)
+    {
+        return timeSheetMensileService.getByUserIdAndAnnoDto(userId, anno);
+    }
+
+    //in uso
+    @GetMapping("/download/{anno}/{mese}")
+    public ResponseEntity<byte[]> download(
+            HttpServletRequest request,
+            @PathVariable int anno,
+            @PathVariable int mese)
+    {
+        try {
+            Long userId = (Long) request.getAttribute("userId");
+
+            byte[] file = timeSheetMensileService.generateExcelByUserAnnoEMese(userId, anno, mese);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDispositionFormData(
+                    "attachment", "timesheet_" + anno + "_" + mese + ".xlsx");
+            headers.setContentType(
+                    MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+
+            return new ResponseEntity<>(file, headers, HttpStatus.OK);
+        } catch (NoSuchElementException | IOException e)
+        {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    //in uso
+    //prende tutti i timesheet disponibili in base all'anno
+    @GetMapping("/anno/{anno}")
+    public List<TimeSheetMensileDto> getMensiliPerAnno(@PathVariable int anno, HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+
+        List<TimeSheetMensile> mensili = timeSheetMensileService.getMensiliByUserIdAndAnno(userId, anno);
+
+        return mensili.stream()
+                .map(m -> new TimeSheetMensileDto(m, m.getGiornalieri()))
+                .collect(Collectors.toList());
+    }
+
 }
 

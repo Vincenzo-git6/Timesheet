@@ -1,5 +1,6 @@
 package com.axcent.TimeSheet.services;
 
+import com.axcent.TimeSheet.dtos.TimeSheetMensileDto;
 import com.axcent.TimeSheet.entities.TimeSheetMensile;
 import com.axcent.TimeSheet.repositories.TimeSheetMensileRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,10 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +24,7 @@ public class TimeSheetMensileService
 {
     private final TimeSheetMensileRepository timeSheetMensileRepository;
     private final CustomUtenteRepositoryImpl custom;
-    //nei servizi vanno le repository
+    private final ExcelService excelService;
 
     public TimeSheetMensile getById(Long id)
     {
@@ -81,6 +86,31 @@ public class TimeSheetMensileService
         } catch (Exception ex) {
             throw new RuntimeException("Errore nella ricerca o creazione del timesheet", ex);
         }
+    }
+
+    public List<TimeSheetMensileDto> getByUserIdAndAnnoDto(Long userId, Integer anno) {
+        List<TimeSheetMensile> list = (anno != null)
+                ? timeSheetMensileRepository.findByUserIdAndAnnoOrderByAnnoAscMeseAsc(userId, anno)
+                : timeSheetMensileRepository.findByUserIdOrderByAnnoAscMeseAsc(userId);
+
+        return list.stream()
+                .map(m -> new TimeSheetMensileDto(m, m.getGiornalieri()))
+                .collect(Collectors.toList());
+    }
+
+    public TimeSheetMensileDto getDtoByUserAnnoEMese(Long userId, int anno, int mese) {
+        TimeSheetMensile m = timeSheetMensileRepository.findByUserIdAndAnnoAndMese(userId, anno, mese).orElse(null);
+        return (m != null) ? new TimeSheetMensileDto(m, m.getGiornalieri()) : null;
+    }
+
+    public byte[] generateExcelByUserAnnoEMese(Long userId, int anno, int mese) throws IOException {
+        TimeSheetMensile m = timeSheetMensileRepository.findByUserIdAndAnnoAndMese(userId, anno, mese).orElse(null);
+        if (m == null) throw new NoSuchElementException();
+        return excelService.generateTimesheetExcel(m);
+    }
+
+    public List<TimeSheetMensile> getMensiliByUserIdAndAnno(Long userId, int anno) {
+        return timeSheetMensileRepository.findByUserIdAndAnno(userId, anno);
     }
 
 

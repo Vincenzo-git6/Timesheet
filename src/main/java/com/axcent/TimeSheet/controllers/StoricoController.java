@@ -19,11 +19,11 @@ public class StoricoController {
 
     @GetMapping("/api/storico-timbrature")
     public Page<StoricoTimbrature> getStoricoPerData(
-              @RequestParam String data,
+            @RequestParam String data,
             @RequestParam int page,
             @RequestParam int size) {
 
-        // Filtra per data (esempio con LIKE su timestamp, adattalo se serve)
+        // Filtra per data 
         Pageable pageable = PageRequest.of(page, size);
 
         // Supponendo che timestamp sia una stringa con formato "dd/MM/yyyy HH:mm"

@@ -2,6 +2,8 @@ package com.axcent.TimeSheet.services;
 
 import com.axcent.TimeSheet.entities.TimeSheetGiornaliero;
 import com.axcent.TimeSheet.entities.TimeSheetMensile;
+import com.axcent.TimeSheet.repositories.TimeSheetMensileRepository;
+import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 @Service
+@RequiredArgsConstructor
 public class ExcelService {
+
+    private final TimeSheetMensileRepository timeSheetMensileRepository;
 
     public byte[] generateTimesheetExcel(TimeSheetMensile mensile) throws IOException {
         try (Workbook workbook = new XSSFWorkbook()) {
@@ -124,4 +129,5 @@ public class ExcelService {
     private String formatOrEmpty(LocalTime time) {
         return time != null ? time.format(DateTimeFormatter.ofPattern("HH:mm")) : "";
     }
+
 }
