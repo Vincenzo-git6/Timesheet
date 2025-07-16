@@ -1,33 +1,31 @@
 package com.axcent.TimeSheet.services;
 
-import com.axcent.TimeSheet.entities.TimbraturaLog;
-import com.axcent.TimeSheet.repositories.TimbraturaLogRepository;
+import com.axcent.TimeSheet.entities.StoricoTimbrature;
+import com.axcent.TimeSheet.repositories.StoricoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class LogService {
+public class StoricoService {
 
-    private final TimbraturaLogRepository timbraturaLogRepository;
+    private final StoricoRepository storicoRepository;
     private final CustomUtenteRepositoryImpl custom;
 
     public void stampaLog(String username, String azione, LocalDate data) {
-        TimbraturaLog log = new TimbraturaLog();
+        StoricoTimbrature log = new StoricoTimbrature();
 
         log.setUsername(username);
         log.setAzione(azione);
         log.setTimestamp(data);
 
-        timbraturaLogRepository.save(log);
+        storicoRepository.save(log);
     }
 
-    public List<TimbraturaLog> leggiLogs() {
-        return timbraturaLogRepository.findAll();
+    public List<StoricoTimbrature> leggiLogs() {
+        return storicoRepository.findAll();
     }
 }

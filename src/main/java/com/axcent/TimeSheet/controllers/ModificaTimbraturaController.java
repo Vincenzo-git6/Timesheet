@@ -1,8 +1,8 @@
 package com.axcent.TimeSheet.controllers;
 
-import com.axcent.TimeSheet.entities.TimbraturaLog;
+import com.axcent.TimeSheet.entities.StoricoTimbrature;
 import com.axcent.TimeSheet.entities.TimeSheetGiornaliero;
-import com.axcent.TimeSheet.services.LogService;
+import com.axcent.TimeSheet.services.StoricoService;
 import com.axcent.TimeSheet.services.TimeSheetGiornalieroService;
 import com.axcent.TimeSheet.services.TimeSheetMensileService;
 import com.axcent.TimeSheet.services.TimeSheetService;
@@ -23,7 +23,7 @@ public class ModificaTimbraturaController
     private final TimeSheetMensileService timeSheetMensileService;
     private final TimeSheetGiornalieroService timeSheetGiornalieroService;
     private final HttpServletRequest request;
-    private final LogService logService;
+    private final StoricoService storicoService;
 
 
 
@@ -63,9 +63,9 @@ public class ModificaTimbraturaController
     }
 
         @GetMapping("/timbraturaLog")
-    public List<TimbraturaLog> leggiLog() {
+    public List<StoricoTimbrature> leggiLog() {
 
-        List<TimbraturaLog> logs = logService.leggiLogs();
+        List<StoricoTimbrature> logs = storicoService.leggiLogs();
         return logs;
     }
 }

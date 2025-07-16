@@ -9,13 +9,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimbraturaLog {
+public class StoricoTimbrature {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
