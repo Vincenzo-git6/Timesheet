@@ -1,16 +1,13 @@
 package com.axcent.TimeSheet.services;
 
+import com.axcent.TimeSheet.entities.customHelper.LocalDateTimeForm;
 import com.axcent.TimeSheet.entities.TimeSheetGiornaliero;
-import com.axcent.TimeSheet.entities.TimeSheetMensile;
 import com.axcent.TimeSheet.entities.enums.Motivo;
 import com.axcent.TimeSheet.repositories.TimeSheetGiornalieroRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 
 @Service
 @RequiredArgsConstructor
@@ -19,53 +16,63 @@ public class TimeSheetService
     private final TimeSheetMensileService timeSheetMensileService;
     private final TimeSheetGiornalieroService timeSheetGiornalieroService;
     private final TimeSheetGiornalieroRepository timeSheetGiornalieroRepository;
+    private final StoricoService storicoService;
 
-//    public void timbra(TimeSheetGiornaliero giornaliero) {
-//        LocalTime ora = LocalTime.now();
-//
-//        if (ora.isBefore(LocalTime.of(13, 0))) {
-//            timbraMattina(giornaliero);
-//        } else if (ora.isBefore(LocalTime.of(18, 0))) {
-//            timbraPomeriggio(giornaliero, ora);
-//        } else {
-//            timbraStraordinario(giornaliero, ora);
-//        }
-//    }
-
-    public void timbraMattina(TimeSheetGiornaliero giornaliero)
+    public String timbraMattina(TimeSheetGiornaliero giornaliero,String username, String data)
     {
         LocalTime ora = LocalTime.now();
 
         if (giornaliero.getEntrataMattina() == null) {
             giornaliero.setEntrataMattina(ora);
+            storicoService.stampaLog(username,"Ingresso mattina",data);
+            return "Ingresso Mattina registrato";
         } else if (giornaliero.getUscitaMattina() == null) {
+            storicoService.stampaLog(username,"Uscita mattina",data);
             giornaliero.setUscitaMattina(ora);
+            return "Uscita Mattina registrata";
         }
+
+        return "Timbratura mattina completata";
     }
 
-    public void timbraPomeriggio(TimeSheetGiornaliero giornaliero) {
+    public String timbraPomeriggio(TimeSheetGiornaliero giornaliero,String username,String data) {
         LocalTime ora = LocalTime.now();
 
         if (giornaliero.getEntrataPomeriggio() == null) {
             giornaliero.setEntrataPomeriggio(ora);
+            storicoService.stampaLog(username,"Ingresso Pomeriggio",data);
+            return "Ingresso Pomeriggio registrato";
         } else if (giornaliero.getUscitaPomeriggio() == null) {
             giornaliero.setUscitaPomeriggio(ora);
+            storicoService.stampaLog(username,"Uscita Pomeriggio",data);
+            return "Uscita Pomeriggio registrato";
         }
+
+        return "Timbratura pomeridiana completata";
     }
 
-    public void timbraAssenza(TimeSheetGiornaliero giornaliero, Motivo motivo)
-    {
-        giornaliero.setMotivo(motivo);
-    }
-
-    public void timbraStraordinario(TimeSheetGiornaliero giornaliero) {
+    public String timbraStraordinario(TimeSheetGiornaliero giornaliero,String username,String data) {
         LocalTime ora = LocalTime.now();
 
         if (giornaliero.getEntrataStraordinario() == null) {
             giornaliero.setEntrataStraordinario(ora);
+            storicoService.stampaLog(username,"Ingresso Straordinario",data);
+            return "Ingresso Straordinario registrato";
+
         } else if (giornaliero.getUscitaStraordinario() == null) {
             giornaliero.setUscitaStraordinario(ora);
+            storicoService.stampaLog(username,"Uscita Straordinario",data);
+            return "Uscita Straordinario registrato";
         }
+
+        return "Timbratura straordinario completata";
+    }
+
+    public String timbraAssenza(TimeSheetGiornaliero giornaliero, Motivo motivo,String username,String data)
+    {
+        giornaliero.setMotivo(motivo);
+        storicoService.stampaLog(username,"Assenza: "+motivo,data);
+        return "Assenza registrata:" + motivo;
     }
 
     public TimeSheetGiornaliero modificaEntrataMattina(Long giornalieroId, LocalTime oraModificata)

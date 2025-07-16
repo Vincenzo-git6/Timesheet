@@ -1,19 +1,20 @@
 package com.axcent.TimeSheet.controllers;
 
+import com.axcent.TimeSheet.dtos.StatoTimbraturaDto;
 import com.axcent.TimeSheet.entities.TimeSheetGiornaliero;
 import com.axcent.TimeSheet.entities.TimeSheetMensile;
+import com.axcent.TimeSheet.entities.customHelper.LocalDateTimeForm;
 import com.axcent.TimeSheet.entities.enums.Motivo;
 import com.axcent.TimeSheet.services.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/timbratura")
@@ -31,19 +32,17 @@ public class TimbraturaController
     public ResponseEntity<?> timbraMattina() {
         Long userId = (Long) request.getAttribute("userId");
         String username = customUtenteRepository.getUtenteUsername(userId);
-        LocalDate oggi = LocalDate.now();
+        String oggi = LocalDateTimeForm.now();
 
         TimeSheetMensile mensile = timeSheetMensileService.findOrCreateCurrentTimeSheetM(userId);
         TimeSheetGiornaliero giornaliero = timeSheetGiornalieroService.createOrFindTimeSheetG(mensile);
 
-        timeSheetService.timbraMattina(giornaliero);
+        String s = timeSheetService.timbraMattina(giornaliero,username,oggi);
         timeSheetGiornalieroService.save(giornaliero);
-
-        storicoService.stampaLog(username, "Timbratura ingresso mattina", oggi);
 
         return ResponseEntity.ok().body(Map.of(
                 "success", true,
-                "message", "Timbratura ingresso mattina effettuata con successo"
+                "message", s
         ));
     }
 
@@ -51,19 +50,18 @@ public class TimbraturaController
     public ResponseEntity<?> timbraPomeriggio() {
         Long userId = (Long) request.getAttribute("userId");
         String username = customUtenteRepository.getUtenteUsername(userId);
-        LocalDate oggi = LocalDate.now();
+        String oggi = LocalDateTimeForm.now();
 
         TimeSheetMensile mensile = timeSheetMensileService.findOrCreateCurrentTimeSheetM(userId);
         TimeSheetGiornaliero giornaliero = timeSheetGiornalieroService.createOrFindTimeSheetG(mensile);
 
-        timeSheetService.timbraPomeriggio(giornaliero);
+        String s = timeSheetService.timbraPomeriggio(giornaliero,username,oggi);
         timeSheetGiornalieroService.save(giornaliero);
 
-        storicoService.stampaLog(username, "Timbratura ingresso pomeriggio", oggi);
 
         return ResponseEntity.ok().body(Map.of(
                 "success", true,
-                "message", "Timbratura ingresso pomeriggio effettuata con successo"
+                "message", s
         ));
     }
 
@@ -71,19 +69,18 @@ public class TimbraturaController
     public ResponseEntity<?> timbraStraordinario() {
         Long userId = (Long) request.getAttribute("userId");
         String username = customUtenteRepository.getUtenteUsername(userId);
-        LocalDate oggi = LocalDate.now();
+        String oggi = LocalDateTimeForm.now();
 
         TimeSheetMensile mensile = timeSheetMensileService.findOrCreateCurrentTimeSheetM(userId);
         TimeSheetGiornaliero giornaliero = timeSheetGiornalieroService.createOrFindTimeSheetG(mensile);
 
-        timeSheetService.timbraStraordinario(giornaliero);
+        String s = timeSheetService.timbraStraordinario(giornaliero,username,oggi);
         timeSheetGiornalieroService.save(giornaliero);
 
-        storicoService.stampaLog(username, "Timbratura straordinario", oggi);
 
         return ResponseEntity.ok().body(Map.of(
                 "success", true,
-                "message", "Timbratura straordinario effettuata con successo"
+                "message", s
         ));
     }
 
@@ -91,19 +88,40 @@ public class TimbraturaController
     public ResponseEntity<?> dichiaraAssenza(@RequestParam Motivo motivo) {
         Long userId = (Long) request.getAttribute("userId");
         String username = customUtenteRepository.getUtenteUsername(userId);
-        LocalDate oggi = LocalDate.now();
+        String oggi = LocalDateTimeForm.now();
 
         TimeSheetMensile mensile = timeSheetMensileService.findOrCreateCurrentTimeSheetM(userId);
         TimeSheetGiornaliero giornaliero = timeSheetGiornalieroService.createOrFindTimeSheetG(mensile);
 
-        timeSheetService.timbraAssenza(giornaliero, motivo);
+        timeSheetService.timbraAssenza(giornaliero, motivo,username,oggi);
         timeSheetGiornalieroService.save(giornaliero);
 
-        storicoService.stampaLog(username, "Dichiarazione assenza: " + motivo, oggi);
 
         return ResponseEntity.ok().body(Map.of(
                 "success", true,
                 "message", "Assenza registrata per motivo: " + motivo
         ));
+    }
+
+    @GetMapping("/stato")
+    public ResponseEntity<?> getStatoTimbrature(){
+        Long userId =(Long) request.getAttribute("userId");
+        LocalDate oggi = LocalDate.now();
+
+        TimeSheetMensile mensile = timeSheetMensileService.findOrCreateCurrentTimeSheetM(userId);
+        TimeSheetGiornaliero giornaliero = timeSheetGiornalieroService.createOrFindTimeSheetG(mensile);
+
+        StatoTimbraturaDto stato = new StatoTimbraturaDto();
+
+        stato.setEntrataMattina(giornaliero.getEntrataMattina()!=null);
+        stato.setUscitaMattina(giornaliero.getUscitaMattina()!=null);
+        stato.setEntrataPomeriggio(giornaliero.getEntrataPomeriggio()!=null);
+        stato.setUscitaPomeriggio(giornaliero.getUscitaPomeriggio()!=null);
+        stato.setEntrataStraordinario(giornaliero.getEntrataStraordinario()!=null);
+        stato.setUscitaStraordinario(giornaliero.getUscitaStraordinario()!=null);
+        stato.setAssenzaSegnata(giornaliero.getMotivo()!=null);
+
+        return ResponseEntity.ok(stato);
+
     }
 }

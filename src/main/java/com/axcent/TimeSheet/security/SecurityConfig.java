@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/modifica/**").hasRole("HR")
+                        .requestMatchers("/api/api/storico-timbrature/**").hasRole("HR")
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated());
 

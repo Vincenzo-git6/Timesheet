@@ -1,5 +1,6 @@
 package com.axcent.TimeSheet.entities;
 
+import com.axcent.TimeSheet.entities.customHelper.LocalDateTimeForm;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,8 +8,6 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Entity
 @Data
@@ -21,6 +20,6 @@ public class StoricoTimbrature {
 
     private String username;
     private String azione;
-    private LocalDate timestamp;
+    private String timestamp;
 
 }
