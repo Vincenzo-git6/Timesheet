@@ -24,7 +24,7 @@ public class TimbraturaController
     private final TimeSheetMensileService timeSheetMensileService;
     private final TimeSheetGiornalieroService timeSheetGiornalieroService;
     private final HttpServletRequest request;
-    private final LogService logService;
+    private final StoricoService storicoService;
     private final CustomUtenteRepositoryImpl customUtenteRepository;
 
     @PostMapping("/mattina")
@@ -39,7 +39,7 @@ public class TimbraturaController
         timeSheetService.timbraMattina(giornaliero);
         timeSheetGiornalieroService.save(giornaliero);
 
-        logService.stampaLog(username, "Timbratura ingresso mattina", oggi);
+        storicoService.stampaLog(username, "Timbratura ingresso mattina", oggi);
 
         return ResponseEntity.ok().body(Map.of(
                 "success", true,
@@ -59,7 +59,7 @@ public class TimbraturaController
         timeSheetService.timbraPomeriggio(giornaliero);
         timeSheetGiornalieroService.save(giornaliero);
 
-        logService.stampaLog(username, "Timbratura ingresso pomeriggio", oggi);
+        storicoService.stampaLog(username, "Timbratura ingresso pomeriggio", oggi);
 
         return ResponseEntity.ok().body(Map.of(
                 "success", true,
@@ -79,7 +79,7 @@ public class TimbraturaController
         timeSheetService.timbraStraordinario(giornaliero);
         timeSheetGiornalieroService.save(giornaliero);
 
-        logService.stampaLog(username, "Timbratura straordinario", oggi);
+        storicoService.stampaLog(username, "Timbratura straordinario", oggi);
 
         return ResponseEntity.ok().body(Map.of(
                 "success", true,
@@ -99,7 +99,7 @@ public class TimbraturaController
         timeSheetService.timbraAssenza(giornaliero, motivo);
         timeSheetGiornalieroService.save(giornaliero);
 
-        logService.stampaLog(username, "Dichiarazione assenza: " + motivo, oggi);
+        storicoService.stampaLog(username, "Dichiarazione assenza: " + motivo, oggi);
 
         return ResponseEntity.ok().body(Map.of(
                 "success", true,
