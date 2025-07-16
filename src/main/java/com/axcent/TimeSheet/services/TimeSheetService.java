@@ -2,6 +2,7 @@ package com.axcent.TimeSheet.services;
 
 import com.axcent.TimeSheet.entities.TimeSheetGiornaliero;
 import com.axcent.TimeSheet.entities.TimeSheetMensile;
+import com.axcent.TimeSheet.entities.enums.Motivo;
 import com.axcent.TimeSheet.repositories.TimeSheetGiornalieroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.core.Local;
@@ -39,45 +40,31 @@ public class TimeSheetService
             giornaliero.setEntrataMattina(ora);
         } else if (giornaliero.getUscitaMattina() == null) {
             giornaliero.setUscitaMattina(ora);
-        } else {
-            throw new IllegalStateException("Hai già completato la timbratura mattutina.");
         }
     }
 
     public void timbraPomeriggio(TimeSheetGiornaliero giornaliero) {
         LocalTime ora = LocalTime.now();
-        boolean mattinaCompletata = giornaliero.getUscitaMattina() != null ||
-                (giornaliero.getEntrataMattina() == null && giornaliero.getUscitaMattina() == null);
-
-        if (!mattinaCompletata) {
-            throw new IllegalStateException("Devi completare o saltare la mattina prima di timbrare il pomeriggio.");
-        }
 
         if (giornaliero.getEntrataPomeriggio() == null) {
             giornaliero.setEntrataPomeriggio(ora);
         } else if (giornaliero.getUscitaPomeriggio() == null) {
             giornaliero.setUscitaPomeriggio(ora);
-        } else {
-            throw new IllegalStateException("Hai già completato la timbratura pomeridiana.");
         }
+    }
+
+    public void timbraAssenza(TimeSheetGiornaliero giornaliero, Motivo motivo)
+    {
+        giornaliero.setMotivo(motivo);
     }
 
     public void timbraStraordinario(TimeSheetGiornaliero giornaliero) {
         LocalTime ora = LocalTime.now();
-        boolean orarioNormaleCompletato =
-                (giornaliero.getEntrataMattina() == null || giornaliero.getUscitaMattina() != null) &&
-                        (giornaliero.getEntrataPomeriggio() == null || giornaliero.getUscitaPomeriggio() != null);
-
-        if (!orarioNormaleCompletato) {
-            throw new IllegalStateException("Completa o salta l'orario normale prima dello straordinario.");
-        }
 
         if (giornaliero.getEntrataStraordinario() == null) {
             giornaliero.setEntrataStraordinario(ora);
         } else if (giornaliero.getUscitaStraordinario() == null) {
             giornaliero.setUscitaStraordinario(ora);
-        } else {
-            throw new IllegalStateException("Hai già completato lo straordinario.");
         }
     }
 
@@ -117,5 +104,7 @@ public class TimeSheetService
 
         return giornaliero;
     }
+
+
 }
 

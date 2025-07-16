@@ -38,6 +38,7 @@ public class TimeSheetMensileService
     {
         try {
             Map<String, Object> m = custom.getUtenteInfo(userId);
+
             return timeSheetMensileRepository
                     .findByUserIdAndAnnoAndMese(userId, anno, mese)
                     .orElseGet(() -> {

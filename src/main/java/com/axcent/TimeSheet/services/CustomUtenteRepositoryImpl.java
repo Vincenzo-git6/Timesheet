@@ -38,4 +38,19 @@ public class CustomUtenteRepositoryImpl implements CustomUtenteRepository {
 
         return (Map<String, Object>) query.getSingleResult();
     }
+
+    public String getUtenteUsername(Long id) {
+        String sql = """
+        SELECT u.username
+        FROM utente u
+        WHERE u.id = :id
+    """;
+
+        Object result = entityManager.createNativeQuery(sql)
+                .setParameter("id", id)
+                .getSingleResult();
+
+        return result != null ? result.toString() : null;
+    }
+
 }

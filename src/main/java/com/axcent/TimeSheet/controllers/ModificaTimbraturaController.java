@@ -1,18 +1,18 @@
 package com.axcent.TimeSheet.controllers;
 
+import com.axcent.TimeSheet.entities.TimbraturaLog;
 import com.axcent.TimeSheet.entities.TimeSheetGiornaliero;
+import com.axcent.TimeSheet.services.LogService;
 import com.axcent.TimeSheet.services.TimeSheetGiornalieroService;
 import com.axcent.TimeSheet.services.TimeSheetMensileService;
 import com.axcent.TimeSheet.services.TimeSheetService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/modifica")
@@ -23,6 +23,8 @@ public class ModificaTimbraturaController
     private final TimeSheetMensileService timeSheetMensileService;
     private final TimeSheetGiornalieroService timeSheetGiornalieroService;
     private final HttpServletRequest request;
+    private final LogService logService;
+
 
 
     @PostMapping("/entrataMattina")
@@ -58,5 +60,12 @@ public class ModificaTimbraturaController
         timeSheetGiornalieroService.save(giornaliero);
 
         return ResponseEntity.ok("Uscita Pomeriggio : modificata con successo");
+    }
+
+        @GetMapping("/timbraturaLog")
+    public List<TimbraturaLog> leggiLog() {
+
+        List<TimbraturaLog> logs = logService.leggiLogs();
+        return logs;
     }
 }
