@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TimeSheetGiornalieroDto {
 
+    private Long id;
     private String data;
     private String entrataMattina;
     private String uscitaMattina;
@@ -21,6 +22,7 @@ public class TimeSheetGiornalieroDto {
     private String motivo;
 
     public TimeSheetGiornalieroDto(TimeSheetGiornaliero g) {
+        this.id = g.getId();
         this.data = g.getDataFormattata(); // es. "Martedì 15/07"
         this.entrataMattina = g.getEntrataMattinaFormattata();
         this.uscitaMattina = g.getUscitaMattinaFormattata();

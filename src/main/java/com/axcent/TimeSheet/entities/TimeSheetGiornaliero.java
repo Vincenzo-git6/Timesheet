@@ -1,6 +1,8 @@
 package com.axcent.TimeSheet.entities;
 
 import com.axcent.TimeSheet.entities.enums.Motivo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,9 +49,11 @@ public class TimeSheetGiornaliero {
 
     @ManyToOne
     @JoinColumn(name = "timesheet_id")
+    @JsonBackReference
     private TimeSheetMensile timesheetMensile;
 
     @Transient
+    @JsonIgnore
     public Duration getOreLavorate() {
         Duration mattina = (entrataMattina != null && uscitaMattina != null)
                 ? Duration.between(entrataMattina, uscitaMattina)
@@ -67,6 +71,7 @@ public class TimeSheetGiornaliero {
     }
 
     @Transient
+    @JsonIgnore
     public String getOreFormattate() {
         Duration totale = getOreLavorate();
         long ore = totale.toHours();
@@ -75,42 +80,50 @@ public class TimeSheetGiornaliero {
     }
 
     @Transient
+    @JsonIgnore
     public String getDataFormattata() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd/MM", Locale.ITALIAN);
         return data != null ? data.format(formatter) : "";
     }
 
     @Transient
+    @JsonIgnore
     private String formatOrEmpty(LocalTime time) {
         return time != null ? time.format(DateTimeFormatter.ofPattern("HH:mm")) : "";
     }
 
     @Transient
+    @JsonIgnore
     public String getEntrataMattinaFormattata() {
         return formatOrEmpty(entrataMattina);
     }
 
     @Transient
+    @JsonIgnore
     public String getUscitaMattinaFormattata() {
         return formatOrEmpty(uscitaMattina);
     }
 
     @Transient
+    @JsonIgnore
     public String getEntrataPomeriggioFormattata() {
         return formatOrEmpty(entrataPomeriggio);
     }
 
     @Transient
+    @JsonIgnore
     public String getUscitaPomeriggioFormattata() {
         return formatOrEmpty(uscitaPomeriggio);
     }
 
     @Transient
+    @JsonIgnore
     public String getEntrataStraordinarioFormattata() {
         return formatOrEmpty(entrataStraordinario);
     }
 
     @Transient
+    @JsonIgnore
     public String getUscitaStraordinarioFormattata() {
         return formatOrEmpty(uscitaStraordinario);
     }

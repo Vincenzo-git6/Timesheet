@@ -35,4 +35,17 @@ public class TimeSheetGiornalieroService
         return timeSheetGiornalieroRepository.save(giornaliero);
     }
 
+    public TimeSheetGiornaliero findById(Long id){
+        return timeSheetGiornalieroRepository.findById(id).orElse(null);
+    }
+
+    public TimeSheetGiornaliero getOrCreateByData(LocalDate data){
+        TimeSheetGiornaliero giornaliero = timeSheetGiornalieroRepository.findByData(data);
+        if(giornaliero==null){
+            return new TimeSheetGiornaliero();
+        }
+        return giornaliero;
+
+    }
+
 }

@@ -19,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/timbratura")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class TimbraturaController
 {
     private final TimeSheetService timeSheetService;
@@ -113,7 +114,7 @@ public class TimbraturaController
 
         StatoTimbraturaDto stato = new StatoTimbraturaDto();
 
-        stato.setEntrataMattina(giornaliero.getEntrataMattina()!=null);
+            stato.setEntrataMattina(giornaliero.getEntrataMattina()!=null);
         stato.setUscitaMattina(giornaliero.getUscitaMattina()!=null);
         stato.setEntrataPomeriggio(giornaliero.getEntrataPomeriggio()!=null);
         stato.setUscitaPomeriggio(giornaliero.getUscitaPomeriggio()!=null);

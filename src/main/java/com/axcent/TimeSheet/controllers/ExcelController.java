@@ -1,11 +1,15 @@
 package com.axcent.TimeSheet.controllers;
 
 import com.axcent.TimeSheet.dtos.TimeSheetMensileDto;
+import com.axcent.TimeSheet.entities.TimeSheetGiornaliero;
 import com.axcent.TimeSheet.entities.TimeSheetMensile;
+import com.axcent.TimeSheet.services.CustomUtenteRepositoryImpl;
 import com.axcent.TimeSheet.services.ExcelService;
+import com.axcent.TimeSheet.services.TimeSheetGiornalieroService;
 import com.axcent.TimeSheet.services.TimeSheetMensileService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.atp.Switch;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,10 +25,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/excel")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ExcelController {
 
     private final ExcelService excelService;
     private final TimeSheetMensileService timeSheetMensileService;
+    private final CustomUtenteRepositoryImpl custom;
+    private final TimeSheetGiornalieroService timeSheetGiornalieroService;
 
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> downloadTimesheet(@PathVariable Long id) throws IOException {
@@ -82,6 +89,42 @@ public class ExcelController {
         return mensili.stream()
                 .map(m -> new TimeSheetMensileDto(m, m.getGiornalieri()))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/timesheets")
+    public TimeSheetMensileDto getTimesheetUtente(
+            @RequestParam String username,
+            @RequestParam int anno,
+            @RequestParam int mese) {
+
+        Long userId = custom.findUserIdByUsername(username);
+        TimeSheetMensile mensile = timeSheetMensileService.getMensiliByUserIdAndAnnoAndMese(userId, anno, mese);
+
+        if (mensile == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Timesheet non trovato");
+        }
+
+        return new TimeSheetMensileDto(mensile, mensile.getGiornalieri());
+    }
+
+    @PostMapping("/giornaliero/{id}")
+    public ResponseEntity<?> aggiornaRigaGiornaliera(@RequestBody TimeSheetGiornaliero aggiornato, @PathVariable Long id) {
+        TimeSheetGiornaliero esistente = timeSheetGiornalieroService.findById(id);
+        if (esistente == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Riga giornaliera non trovata");
+        }
+
+        esistente.setEntrataMattina(aggiornato.getEntrataMattina());
+        esistente.setUscitaMattina(aggiornato.getUscitaMattina());
+        esistente.setEntrataPomeriggio(aggiornato.getEntrataPomeriggio());
+        esistente.setUscitaPomeriggio(aggiornato.getUscitaPomeriggio());
+        esistente.setEntrataStraordinario(aggiornato.getEntrataStraordinario());
+        esistente.setUscitaStraordinario(aggiornato.getUscitaStraordinario());
+        esistente.setMotivo(aggiornato.getMotivo());
+
+        timeSheetGiornalieroService.save(esistente);
+
+        return ResponseEntity.ok("Riga aggiornata con successo");
     }
 
 }
