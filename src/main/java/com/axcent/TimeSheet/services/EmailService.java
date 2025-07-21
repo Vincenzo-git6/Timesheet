@@ -1,5 +1,6 @@
 package com.axcent.TimeSheet.services;
 
+import com.axcent.TimeSheet.entities.TimeSheetGiornaliero;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 public class EmailService {
 
     private final JavaMailSender javaMailSender;
+    private final TimeSheetGiornalieroService timeSheetGiornalieroService;
 
     /**
      * Invia una mail quando viene registrata un'assenza automatica
@@ -57,4 +59,52 @@ public class EmailService {
         }
     }
 
+    public void inviaEmailUscitaNonTimbrata(String username, String email, LocalDate data, Long idTimeSheetGiornaliero) {
+        TimeSheetGiornaliero timeSheetGiornaliero = timeSheetGiornalieroService.findById(idTimeSheetGiornaliero);
+
+        boolean mattinaMancante = timeSheetGiornaliero.getUscitaMattina() == null;
+        boolean pomeriggioMancante = timeSheetGiornaliero.getUscitaPomeriggio() == null;
+
+        String periodoMancante = null;
+
+        // La logica è stata invertita per verificare prima il caso più specifico (entrambi mancanti)
+        if (mattinaMancante && pomeriggioMancante) {
+            periodoMancante = "delle uscite della mattina e del pomeriggio";
+        } else if (mattinaMancante) {
+            periodoMancante = "dell'uscita di questa mattina";
+        } else if (pomeriggioMancante) {
+            periodoMancante = "dell'uscita di questo pomeriggio";
+        }
+
+        if (periodoMancante != null) {
+            System.out.println("[EmailService] Preparazione email uscita non timbrata per utente " + username + " - email " + email);
+
+            String oggetto = "Uscita non timbrata rilevata - " + data;
+            // Usiamo String.format per una migliore leggibilità
+            String corpo = String.format(
+                    "Ciao %s,\n\n" +
+                            "In data %s risulta mancante la timbratura %s nel sistema TimeSheet.\n" +
+                            "Per favore contatta il team HR e chiedi di modificare l'orario di uscita, specificando data e ora.\n\n" +
+                            "Grazie,\n" +
+                            "Il team HR",
+                    username, data, periodoMancante
+            );
+
+            try {
+                SimpleMailMessage message = new SimpleMailMessage();
+                message.setTo(email);
+                message.setSubject(oggetto);
+                message.setText(corpo);
+
+                System.out.println("[EmailService] Invio email a " + email + " con oggetto: " + oggetto);
+                javaMailSender.send(message);
+                System.out.println("[EmailService] Email inviata con successo a " + email);
+                log.info("Email inviata con successo a {}", email);
+
+            } catch (Exception ex) {
+                System.err.println("[EmailService] ERRORE nell'invio dell'email a " + email + ": " + ex.getMessage());
+                log.error("Errore nell'invio dell'email a {}: {}", email, ex.getMessage(), ex);
+            }
+        }
+    }
 }

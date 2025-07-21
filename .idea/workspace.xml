@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b59f302-d5cb-46c6-911a-8a679062f792" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/ExcelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/ExcelController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/ModificaTimbraturaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/ModificaTimbraturaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/StoricoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/StoricoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/TimbraturaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/TimbraturaController.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetAutoAssenzaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetAutoAssenzaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/TimeSheetService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/TimeSheetService.class" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +49,9 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/ExcelController.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/dtos/TimeSheetGiornalieroDto.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/CustomUtenteRepositoryImpl.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/EmailService.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/ExcelService.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetAutoAssenzaService.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetMensileService.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetService.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/resources/application.properties" root0="SKIP_INSPECTION" />

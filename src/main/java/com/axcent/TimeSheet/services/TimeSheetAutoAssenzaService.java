@@ -62,4 +62,32 @@ public class TimeSheetAutoAssenzaService {
             }
         }
     }
+
+    @Scheduled(cron = "0 26 17 * * *") // ogni giorno alle 19:00
+    public void controllaUscitaNonTimbrata()
+    {
+        LocalDate oggi = LocalDate.now();
+        int mese = oggi.getMonthValue();
+        int anno = oggi.getYear();
+
+        List<TimeSheetMensile> mensili = mensileService.findAllTimesheet();
+
+        for (TimeSheetMensile mensile : mensili) {
+            if (mensile.getMese() != mese || mensile.getAnno() != anno) {
+                continue;
+            }
+
+            Long userId = mensile.getUserId();
+            String username = customUtenteRepository.getUtenteUsername(userId);
+            String email = customUtenteRepository.getEmailByUserId(userId);
+
+            TimeSheetGiornaliero giornaliero = giornalieroService.createOrFindTimeSheetG(mensile);
+
+            boolean uscitaNonTimbrata = (giornaliero.getUscitaMattina() == null && giornaliero.getEntrataMattina() != null) ||
+                    (giornaliero.getUscitaPomeriggio() == null && giornaliero.getEntrataPomeriggio() != null);
+
+            if (uscitaNonTimbrata)
+                emailService.inviaEmailUscitaNonTimbrata(username, email, oggi, giornaliero.getId());
+        }
+    }
 }
