@@ -43,10 +43,14 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/modifica//{id}/motivo/**").permitAll()
+                        .requestMatchers("/api/modifica/{id}/motivo/**").permitAll()
+                        .requestMatchers("/api/modifica/**").hasRole("HR")
                         .requestMatchers("/api/api/storico-timbrature/**").hasRole("HR")
                         .requestMatchers("/api/excel/**").permitAll()
                         .requestMatchers("/api/excel/giornaliero/**").hasRole("HR")
+                        .requestMatchers("/api/excel/**").authenticated()
+                        .requestMatchers("/api/timbratura/**").authenticated()
+                        .requestMatchers("/api/utente/**").authenticated()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated());
 

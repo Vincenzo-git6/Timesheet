@@ -29,8 +29,8 @@ public class TimbraturaController
     private final StoricoService storicoService;
     private final CustomUtenteRepositoryImpl customUtenteRepository;
 
-    @PostMapping("/mattina")
-    public ResponseEntity<?> timbraMattina() {
+    @PostMapping("/timbra")
+    public ResponseEntity<?> timbra() {
         Long userId = (Long) request.getAttribute("userId");
         String username = customUtenteRepository.getUtenteUsername(userId);
         String oggi = LocalDateTimeForm.now();
@@ -38,7 +38,7 @@ public class TimbraturaController
         TimeSheetMensile mensile = timeSheetMensileService.findOrCreateCurrentTimeSheetM(userId);
         TimeSheetGiornaliero giornaliero = timeSheetGiornalieroService.createOrFindTimeSheetG(mensile);
 
-        String s = timeSheetService.timbraMattina(giornaliero,username,oggi);
+        String s = timeSheetService.timbraGenerale(giornaliero,username,oggi);
         timeSheetGiornalieroService.save(giornaliero);
 
         return ResponseEntity.ok().body(Map.of(
@@ -47,24 +47,24 @@ public class TimbraturaController
         ));
     }
 
-    @PostMapping("/pomeriggio")
-    public ResponseEntity<?> timbraPomeriggio() {
-        Long userId = (Long) request.getAttribute("userId");
-        String username = customUtenteRepository.getUtenteUsername(userId);
-        String oggi = LocalDateTimeForm.now();
-
-        TimeSheetMensile mensile = timeSheetMensileService.findOrCreateCurrentTimeSheetM(userId);
-        TimeSheetGiornaliero giornaliero = timeSheetGiornalieroService.createOrFindTimeSheetG(mensile);
-
-        String s = timeSheetService.timbraPomeriggio(giornaliero,username,oggi);
-        timeSheetGiornalieroService.save(giornaliero);
-
-
-        return ResponseEntity.ok().body(Map.of(
-                "success", true,
-                "message", s
-        ));
-    }
+//    @PostMapping("/pomeriggio")
+//    public ResponseEntity<?> timbraPomeriggio() {
+//        Long userId = (Long) request.getAttribute("userId");
+//        String username = customUtenteRepository.getUtenteUsername(userId);
+//        String oggi = LocalDateTimeForm.now();
+//
+//        TimeSheetMensile mensile = timeSheetMensileService.findOrCreateCurrentTimeSheetM(userId);
+//        TimeSheetGiornaliero giornaliero = timeSheetGiornalieroService.createOrFindTimeSheetG(mensile);
+//
+//        String s = timeSheetService.timbraPomeriggio(giornaliero,username,oggi);
+//        timeSheetGiornalieroService.save(giornaliero);
+//
+//
+//        return ResponseEntity.ok().body(Map.of(
+//                "success", true,
+//                "message", s
+//        ));
+//    }
 
     @PostMapping("/straordinario")
     public ResponseEntity<?> timbraStraordinario() {

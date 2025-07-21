@@ -45,6 +45,7 @@ public class TimeSheetGiornaliero {
     private LocalTime uscitaStraordinario;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
     private Motivo motivo;
 
     @ManyToOne

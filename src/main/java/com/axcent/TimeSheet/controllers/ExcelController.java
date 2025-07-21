@@ -120,7 +120,9 @@ public class ExcelController {
         esistente.setUscitaPomeriggio(aggiornato.getUscitaPomeriggio());
         esistente.setEntrataStraordinario(aggiornato.getEntrataStraordinario());
         esistente.setUscitaStraordinario(aggiornato.getUscitaStraordinario());
-        esistente.setMotivo(aggiornato.getMotivo());
+
+        if (aggiornato.getMotivo() != null)
+            esistente.setMotivo(aggiornato.getMotivo());
 
         timeSheetGiornalieroService.save(esistente);
 

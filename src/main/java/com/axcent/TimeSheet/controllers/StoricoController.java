@@ -25,6 +25,7 @@ public class StoricoController {
             @RequestParam int page,
             @RequestParam int size) {
 
+        // Filtra per data
         Pageable pageable = PageRequest.of(page, size);
 
         String dataFormattata = data; // esempio "16/07/2025"

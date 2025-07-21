@@ -90,4 +90,33 @@ public class CustomUtenteRepositoryImpl implements CustomUtenteRepository {
     }
 
 
+    public Map<String, Object> getUtenteNomeCognome(Long id) {
+        String sql = """
+            SELECT
+                        a.nome,
+                        a.cognome
+                    FROM
+                        utente u
+                    INNER JOIN
+                        anagrafica_utente a ON a.utente_id = u.id
+                    WHERE
+                        u.id = :id;
+        """;
+
+        NativeQuery<?> query = (NativeQuery<?>) entityManager
+                .createNativeQuery(sql)
+                .unwrap(NativeQuery.class);
+
+        query.setParameter("id", id);
+        query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+
+        if (query == null)
+        {
+            return null;
+        }
+
+        return (Map<String, Object>) query.getSingleResult();
+    }
+
+
 }
