@@ -69,6 +69,8 @@ public class ModificaTimbraturaController
         return ResponseEntity.ok("Uscita Pomeriggio : modificata con successo");
     }
 
+
+
         @GetMapping("/timbraturaLog")
     public List<StoricoTimbrature> leggiLog() {
 

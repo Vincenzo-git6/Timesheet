@@ -122,6 +122,7 @@ public class ExcelController {
         esistente.setUscitaStraordinario(aggiornato.getUscitaStraordinario());
         esistente.setMotivo(aggiornato.getMotivo());
 
+
         timeSheetGiornalieroService.save(esistente);
 
         return ResponseEntity.ok("Riga aggiornata con successo");
