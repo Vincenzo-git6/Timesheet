@@ -24,7 +24,7 @@ public class TimeSheetAutoAssenzaService {
     private final EmailService emailService;
     private final StoricoService storicoService;
 
-    @Scheduled(cron = "0 47 14 * * *") // ogni giorno alle 19:00
+    @Scheduled(cron = "0 11 18 * * *") // ogni giorno alle 19:00
     public void controllaAssenzePerTuttiGliUtenti() {
         LocalDate oggi = LocalDate.now();
         int mese = oggi.getMonthValue();
