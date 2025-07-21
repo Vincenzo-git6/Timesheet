@@ -95,8 +95,8 @@ public class ExcelController {
     public TimeSheetMensileDto getTimesheetUtente(
             @RequestParam String username,
             @RequestParam int anno,
-            @RequestParam int mese) {
-
+            @RequestParam int mese)
+    {
         Long userId = custom.findUserIdByUsername(username);
         TimeSheetMensile mensile = timeSheetMensileService.getMensiliByUserIdAndAnnoAndMese(userId, anno, mese);
 
@@ -120,9 +120,7 @@ public class ExcelController {
         esistente.setUscitaPomeriggio(aggiornato.getUscitaPomeriggio());
         esistente.setEntrataStraordinario(aggiornato.getEntrataStraordinario());
         esistente.setUscitaStraordinario(aggiornato.getUscitaStraordinario());
-
-        if (aggiornato.getMotivo() != null)
-            esistente.setMotivo(aggiornato.getMotivo());
+        esistente.setMotivo(aggiornato.getMotivo());
 
         timeSheetGiornalieroService.save(esistente);
 

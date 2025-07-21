@@ -127,7 +127,7 @@ public class TimeSheetService
                 storicoService.stampaLog(username, "Uscita mattina", data);
                 return "Uscita Mattina registrata";
             }
-        } else if (ora.isAfter(LocalTime.of(14, 00)) && ora.isBefore(LocalTime.of(18, 5)))
+        } else if (ora.isAfter(LocalTime.of(14, 00)) && ora.isBefore(LocalTime.of(18, 10)))
         {
             if (giornaliero.getEntrataPomeriggio() == null) {
                 giornaliero.setEntrataPomeriggio(ora);

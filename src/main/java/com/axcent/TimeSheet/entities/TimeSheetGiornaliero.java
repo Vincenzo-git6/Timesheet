@@ -1,8 +1,10 @@
 package com.axcent.TimeSheet.entities;
 
+import com.axcent.TimeSheet.entities.customHelper.MotivoDeserializer;
 import com.axcent.TimeSheet.entities.enums.Motivo;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,7 +47,7 @@ public class TimeSheetGiornaliero {
     private LocalTime uscitaStraordinario;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
+    @JsonDeserialize(using = MotivoDeserializer.class)
     private Motivo motivo;
 
     @ManyToOne

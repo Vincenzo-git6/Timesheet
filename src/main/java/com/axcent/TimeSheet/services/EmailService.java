@@ -24,6 +24,7 @@ public class EmailService {
      */
     public void inviaEmailAssenza(String username, String email, LocalDate data, Long idTimeSheetGiornaliero) {
         System.out.println("[EmailService] Preparazione email assenza per utente " + username + " - email " + email);
+        //TODO Mettere nome e cognome, metodo già fatto
 
         // Link aggiornato con id come query parameter
         String linkCorrezione = "http://localhost:4200/motivi-assenza?id=" + idTimeSheetGiornaliero;

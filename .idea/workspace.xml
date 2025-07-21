@@ -5,24 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b59f302-d5cb-46c6-911a-8a679062f792" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/UtenteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/controllers/UtenteController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/entities/customHelper/MotivoDeserializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/ExcelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/ExcelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/StoricoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/StoricoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/TimbraturaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/controllers/TimbraturaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/entities/TimeSheetGiornaliero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/entities/TimeSheetGiornaliero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/CustomUtenteRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/CustomUtenteRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetAutoAssenzaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetAutoAssenzaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetMensileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/axcent/TimeSheet/services/TimeSheetMensileService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/controllers/ExcelController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/controllers/ExcelController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/controllers/StoricoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/controllers/StoricoController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/controllers/TimbraturaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/controllers/TimbraturaController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/entities/TimeSheetGiornaliero.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/entities/TimeSheetGiornaliero.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/security/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/CustomUtenteRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/CustomUtenteRepositoryImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/TimeSheetService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/TimeSheetService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/TimeSheetMensileService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/axcent/TimeSheet/services/TimeSheetMensileService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +81,11 @@
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; Stashed changes
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.axcent.TimeSheet.entities" />
+    </key>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="1b59f302-d5cb-46c6-911a-8a679062f792" name="Changes" comment="" />
