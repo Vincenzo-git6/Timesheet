@@ -96,7 +96,7 @@ public class TimbraturaController
 
         StatoTimbraturaDto stato = new StatoTimbraturaDto();
 
-        stato.setEntrataMattina(giornaliero.getEntrataMattina()!=null);
+         stato.setEntrataMattina(giornaliero.getEntrataMattina()!=null);
         stato.setUscitaMattina(giornaliero.getUscitaMattina()!=null);
         stato.setEntrataPomeriggio(giornaliero.getEntrataPomeriggio()!=null);
         stato.setUscitaPomeriggio(giornaliero.getUscitaPomeriggio()!=null);

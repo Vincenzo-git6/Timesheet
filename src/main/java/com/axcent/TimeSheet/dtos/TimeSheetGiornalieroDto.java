@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeSheetGiornalieroDto {
+public class  TimeSheetGiornalieroDto {
 
     private Long id;
     private String data;

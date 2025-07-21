@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Questa classe si occupa della formattazione del giorno e dell'ora
  */
-public class LocalDateTimeForm
+public class  LocalDateTimeForm
 {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 

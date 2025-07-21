@@ -105,6 +105,6 @@ public class EmailService {
                 System.err.println("[EmailService] ERRORE nell'invio dell'email a " + email + ": " + ex.getMessage());
                 log.error("Errore nell'invio dell'email a {}: {}", email, ex.getMessage(), ex);
             }
-        }
+        } 
     }
 }

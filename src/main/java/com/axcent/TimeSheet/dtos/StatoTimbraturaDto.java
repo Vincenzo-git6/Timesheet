@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StatoTimbraturaDto
+public class  StatoTimbraturaDto
 {
     private boolean entrataMattina;
     private boolean uscitaMattina;

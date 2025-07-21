@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class StoricoService {
+public class  StoricoService {
 
     private final StoricoRepository storicoRepository;
     private final CustomUtenteRepositoryImpl custom;
