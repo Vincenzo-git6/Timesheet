@@ -107,26 +107,7 @@ public class ExcelController {
         return new TimeSheetMensileDto(mensile, mensile.getGiornalieri());
     }
 
-    @PostMapping("/giornaliero/{id}")
-    public ResponseEntity<?> aggiornaRigaGiornaliera(@RequestBody TimeSheetGiornaliero aggiornato, @PathVariable Long id) {
-        TimeSheetGiornaliero esistente = timeSheetGiornalieroService.findById(id);
-        if (esistente == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Riga giornaliera non trovata");
-        }
 
-        esistente.setEntrataMattina(aggiornato.getEntrataMattina());
-        esistente.setUscitaMattina(aggiornato.getUscitaMattina());
-        esistente.setEntrataPomeriggio(aggiornato.getEntrataPomeriggio());
-        esistente.setUscitaPomeriggio(aggiornato.getUscitaPomeriggio());
-        esistente.setEntrataStraordinario(aggiornato.getEntrataStraordinario());
-        esistente.setUscitaStraordinario(aggiornato.getUscitaStraordinario());
-        esistente.setMotivo(aggiornato.getMotivo());
-
-
-        timeSheetGiornalieroService.save(esistente);
-
-        return ResponseEntity.ok("Riga aggiornata con successo");
-    }
 
 }
 

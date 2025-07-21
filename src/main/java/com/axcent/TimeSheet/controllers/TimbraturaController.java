@@ -47,24 +47,6 @@ public class TimbraturaController
         ));
     }
 
-//    @PostMapping("/pomeriggio")
-//    public ResponseEntity<?> timbraPomeriggio() {
-//        Long userId = (Long) request.getAttribute("userId");
-//        String username = customUtenteRepository.getUtenteUsername(userId);
-//        String oggi = LocalDateTimeForm.now();
-//
-//        TimeSheetMensile mensile = timeSheetMensileService.findOrCreateCurrentTimeSheetM(userId);
-//        TimeSheetGiornaliero giornaliero = timeSheetGiornalieroService.createOrFindTimeSheetG(mensile);
-//
-//        String s = timeSheetService.timbraPomeriggio(giornaliero,username,oggi);
-//        timeSheetGiornalieroService.save(giornaliero);
-//
-//
-//        return ResponseEntity.ok().body(Map.of(
-//                "success", true,
-//                "message", s
-//        ));
-//    }
 
     @PostMapping("/straordinario")
     public ResponseEntity<?> timbraStraordinario() {
@@ -114,7 +96,7 @@ public class TimbraturaController
 
         StatoTimbraturaDto stato = new StatoTimbraturaDto();
 
-            stato.setEntrataMattina(giornaliero.getEntrataMattina()!=null);
+        stato.setEntrataMattina(giornaliero.getEntrataMattina()!=null);
         stato.setUscitaMattina(giornaliero.getUscitaMattina()!=null);
         stato.setEntrataPomeriggio(giornaliero.getEntrataPomeriggio()!=null);
         stato.setUscitaPomeriggio(giornaliero.getUscitaPomeriggio()!=null);
